@@ -3,10 +3,12 @@
   "private": true,
   "version": "",
   "scripts": {
-    "build": "rsbuild build"
+    "build": "rsbuild build",
+    "dev": "bun run dev_server.ts"
   },
   "devDependencies": {
     "@rsbuild/core": "^1.0.1",
+    "chokidar": "^4.0.3",
     "typescript": "^5.5.2"
   },
   "dependencies": {
