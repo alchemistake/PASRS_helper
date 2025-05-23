@@ -13,15 +13,9 @@ export class AutoReplaySettings {
 		for (const key in options) {
 			key as keyof AutoReplaySettings;
 			if (key in this) {
-				// @ts-ignore
+				// @ts-ignore #TODO: Fix this
 				(this)[key] = options[key];
 			}
 		}
-		// this.active = options.active;
-		// this.notifications = options.notifications;
-		// this.vgc_only = options.vgc_only;
-		// this.use_custom_replay_filter = options.use_custom_replay_filter;
-		// this.custom_replay_filter = options.custom_replay_filter;
-		// this.use_clipboard = options.use_clipboard;
 	}
 }

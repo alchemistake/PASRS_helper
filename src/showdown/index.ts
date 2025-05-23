@@ -1,4 +1,5 @@
 import { createPASRSRoom } from "./frontend";
+import { App } from "./room";
 import { autoPlaySettings } from "./storage";
 
 
@@ -93,7 +94,7 @@ app.send = (data: string, roomId?: string) => {
 		rooms.set(roomId, RoomState.Finished);
 	}
 	if (data.includes("/noreply /leave view-pasrs-helper")) {
-		createPASRSRoom();
+		setTimeout(createPASRSRoom, 0);
 	}
 };
 
