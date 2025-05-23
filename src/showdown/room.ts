@@ -1,7 +1,7 @@
 // Original code comes from Showdex. Converted to typescript for maintainability.
 // https://raw.githubusercontent.com/doshidak/showdex/045fad2c63fbd941a1bf6b17430e6f4259099b82/src/utils/host/createHtmlRoom.ts
 
-interface App {
+export interface App {
 	_addRoom: (id: string, type: string, hidden: boolean, title: string) => Room;
 	rooms: Record<string, Room>;
 	roomList: Room[];
@@ -37,7 +37,7 @@ interface CreateHtmlRoomOptions {
 
 declare const app: App;
 
-const createHtmlRoom = (
+export const createHtmlRoom = (
 	id: string,
 	title: string,
 	options: CreateHtmlRoomOptions = {},
@@ -106,5 +106,3 @@ const createHtmlRoom = (
 
 	return room;
 };
-
-export { createHtmlRoom, app };

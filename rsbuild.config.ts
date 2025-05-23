@@ -20,10 +20,8 @@ export default defineConfig({
 			VERSION: JSON.stringify(require("./manifest.json").version),
 		},
 		entry: {
-			main: "./src/main.ts",
-			room: "./src/room.ts",
-			auto_replay: "./src/auto_replay.ts",
-			psd_replay: "./src/psd_replay.ts",
+			extension: "./src/extension/index.ts",
+			showdown: "./src/showdown/index.ts",
 		},
 	},
 	tools: {

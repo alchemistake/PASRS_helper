@@ -5,5 +5,4 @@ function injectScript(file: string) {
 	(document.head || document.documentElement).append(s);
 }
 
-injectScript("dist/room.js");
-injectScript("dist/psd_replay.js");
+injectScript("dist/showdown.js");

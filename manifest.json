@@ -12,16 +12,14 @@
         "https://play.pokemonshowdown.com/*"
       ],
       "js": [
-        "dist/main.js"
+        "dist/extension.js"
       ]
     }
   ],
   "web_accessible_resources": [
     {
       "resources": [
-        "dist/psd_replay.js",
-        "dist/room.js",
-        "dist/auto_replay.js"
+        "dist/showdown.js"
       ],
       "matches": [
         "https://play.pokemonshowdown.com/*"
