@@ -28,17 +28,19 @@ app.receive = (data: string) => {
 
 		const roomId = `battle-${parts[parts.length - 1]}`;
 		if (rooms.get(roomId) === RoomState.Finished) {
-			setTimeout(function clipboardFunction() {
-				navigator.clipboard
-					.writeText(url)
-					.then(() => {
-						if (autoPlaySettings.notifications)
-							new Notification("Your replay has been uploaded!");
-					})
-					.catch(() => {
-						setTimeout(clipboardFunction, 250);
-					});
-			}, 0);
+			if (autoPlaySettings.use_clipboard) {
+				setTimeout(function clipboardFunction() {
+					navigator.clipboard
+						.writeText(url)
+						.then(() => {
+							if (autoPlaySettings.notifications)
+								new Notification("Your replay has been uploaded!");
+						})
+						.catch(() => {
+							setTimeout(clipboardFunction, 250);
+						});
+				}, 0);
+			}
 
 			$("#pasrs_games").append(
 				`<li><a href="${url}" target="_blank">${url}</a></li>`,
