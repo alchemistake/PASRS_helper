@@ -2,11 +2,7 @@ import { createPASRSRoom } from "./frontend";
 import { App } from "./room";
 import { autoPlaySettings } from "./storage";
 
-
 declare const app: App;
-
-// @ts-ignore : VERSION is injected by the bundler
-const VERSION_TEXT = VERSION;
 
 enum RoomState {
 	OnGoing = "ongoing",
@@ -55,11 +51,23 @@ app.receive = (data: string) => {
 
 		let receivedRoom = data.startsWith(">");
 		const data_split = data.split("-");
+		
+		// VGC only filter
 		if (
 			autoPlaySettings.vgc_only &&
 			data_split &&
 			data_split.length > 1 &&
 			!data_split[1].includes("vgc")
+		) {
+			receivedRoom = false;
+		}
+		
+		// Custom replay filter
+		if (
+			autoPlaySettings.use_custom_replay_filter &&
+			data_split &&
+			data_split.length > 1 &&
+			!data_split[1].includes(autoPlaySettings.custom_replay_filter)
 		) {
 			receivedRoom = false;
 		}
