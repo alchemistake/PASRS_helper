@@ -9,13 +9,11 @@ export class AutoReplaySettings {
 	constructor(json: string | null) {
 		if (!json) return;
 
-		const options = JSON.parse(json) as AutoReplaySettings;
-		for (const key in options) {
-			key as keyof AutoReplaySettings;
-			if (key in this) {
-				// @ts-ignore #TODO: Fix this
-				(this)[key] = options[key];
-			}
+		try {
+			const options = JSON.parse(json);
+			Object.assign(this, options);
+		} catch (e) {
+			console.error("Failed to parse AutoReplaySettings JSON:", e);
 		}
 	}
 }
