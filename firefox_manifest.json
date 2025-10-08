@@ -1,7 +1,7 @@
 {
   "name": "PASRS Helper",
   "description": "Automatically uploads the replay of your last battle in PSD.",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "manifest_version": 3,
   "icons": {
     "128": "128.png"
