@@ -13,7 +13,7 @@ export enum ReplayRoomState {
 	Ignored = "ignored",
 	OnGoing = "ongoing",
 	Finished = "finished",
-	Recorded = "recorded", // try to phase out
+	Recorded = "recorded",
 }
 
 export enum ReplayRoomResult {
