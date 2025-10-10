@@ -20,6 +20,8 @@ html.dark {
 	flex-direction: column;
 	text-align: center;
 	height: 100%;
+	container-type: inline-size;
+  	container-name: pasrs-app;
 
 	header {
 		display: flex;
@@ -60,10 +62,11 @@ html.dark {
 			display: flex;
 			background-color: var(--showdown-background-light);
 		}
+
+		@container pasrs-app (max-width: 654px) {
+			.settings-section {
+				display: none;
+			}
+		}
 	}
-}
-
-
-.pasrs-app.single-panel .content .settings-section {
-	display: none;
 }
