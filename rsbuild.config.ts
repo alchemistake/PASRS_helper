@@ -14,6 +14,13 @@ export default defineConfig({
 		distPath: {
 			js: "",
 		},
+		copy: [
+			{ from: './src/extension/popup.html' },
+		],
+		minify: {
+			js: false,
+		},
+		target: "web",
 	},
 	source: {
 		define: {
@@ -21,6 +28,7 @@ export default defineConfig({
 		},
 		entry: {
 			extension: "./src/extension/index.ts",
+			popup: "./src/extension/popup.ts",
 			showdown: "./src/showdown/index.ts",
 		},
 	},

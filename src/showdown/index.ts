@@ -51,7 +51,7 @@ app.receive = (data: string) => {
 
 		let receivedRoom = data.startsWith(">");
 		const data_split = data.split("-");
-		
+
 		// VGC only filter
 		if (
 			autoPlaySettings.vgc_only &&
@@ -61,7 +61,7 @@ app.receive = (data: string) => {
 		) {
 			receivedRoom = false;
 		}
-		
+
 		// Custom replay filter
 		if (
 			autoPlaySettings.use_custom_replay_filter &&
@@ -101,9 +101,9 @@ app.send = (data: string, roomId?: string) => {
 		appSend("/savereplay", roomId);
 		rooms.set(roomId, RoomState.Finished);
 	}
-	if (data.includes("/noreply /leave view-pasrs-helper")) {
-		setTimeout(createPASRSRoom, 0);
-	}
+	// if (data.includes("/noreply /leave view-pasrs-helper")) {
+	// 	setTimeout(createPASRSRoom, 0);
+	// }
 };
 
 // poor mans await.
@@ -116,3 +116,8 @@ let roomTimer = setTimeout(function roomCreator() {
 		roomTimer = setTimeout(roomCreator, 250);
 	}
 }, 0);
+
+// @ts-ignore : window.app exists within the actual page
+window.PASRS = {
+	createPASRSRoom: createPASRSRoom,
+}

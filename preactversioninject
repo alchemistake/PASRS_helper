@@ -1,0 +1,1 @@
+window.PS.addRoom({ id: "view-pasrs-helper", title: "PASRS", "type": "html", "connected": "client-only", "noURL": false, "location": "right" }); PS.update()

@@ -3,6 +3,14 @@
   "description": "Automatically uploads the replay of your last battle in PSD then it will be copied to your clipboard.",
   "version": "0.4",
   "manifest_version": 3,
+  "action": {
+    "default_popup": "dist/popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
   "icons": {
     "128": "128.png"
   },
@@ -12,14 +20,16 @@
         "https://play.pokemonshowdown.com/*"
       ],
       "js": [
-        "dist/extension.js"
+        "dist/extension.js",
+        "dist/createRoom.js"
       ]
     }
   ],
   "web_accessible_resources": [
     {
       "resources": [
-        "dist/showdown.js"
+        "dist/showdown.js",
+        "dist/createRoom.js"
       ],
       "matches": [
         "https://play.pokemonshowdown.com/*"
