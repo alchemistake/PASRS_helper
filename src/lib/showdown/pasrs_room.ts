@@ -12,6 +12,9 @@ function createPASRSRoom(): void {
     }
 
     room.$el.html(`<div id="react-root"></div>`);
+
+    // @ts-ignore : window.PASRS will exist within the actual page
+    window.PASRS.startReactRender();
 }
 
 export default createPASRSRoom;
