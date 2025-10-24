@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/App';
+import { App as ShowdownRoomApp } from './lib/showdown/room';
 
 function startReactRender() {
 const rootEl = document.getElementById('react-root');
@@ -16,7 +17,15 @@ if (rootEl) {
 
 startReactRender();
 
-// @ts-ignore : window.app exists within the actual page
 window.PASRS = {
 	startReactRender,
 };
+
+declare global {
+	interface Window {
+		PASRS: {
+			startReactRender: () => void;
+		};
+		app: ShowdownRoomApp
+	}
+}
