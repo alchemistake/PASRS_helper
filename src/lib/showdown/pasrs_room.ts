@@ -12,6 +12,10 @@ function createPASRSRoom(): void {
     }
 
     room.$el.html(`<div id="react-root"></div>`);
+
+    if (window.PASRS) {
+        window.PASRS.startReactRender();
+    }
 }
 
 export default createPASRSRoom;

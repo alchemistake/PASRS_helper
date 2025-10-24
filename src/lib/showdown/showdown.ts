@@ -98,7 +98,6 @@ app.send = (data: string, roomId?: string) => {
 // poor mans await.
 // Indeed :(
 let roomTimer = setTimeout(function roomCreator() {
-	// @ts-ignore : window.app exists within the actual page
 	if (window.app) {
 		clearTimeout(roomTimer);
 		createPASRSRoom();
