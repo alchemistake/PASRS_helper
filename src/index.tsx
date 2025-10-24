@@ -3,6 +3,15 @@ import ReactDOM from 'react-dom/client';
 import App from './components/App';
 import { App as ShowdownRoomApp } from './lib/showdown/room';
 
+declare global {
+	interface Window {
+		PASRS: {
+			startReactRender: () => void;
+		};
+		app: ShowdownRoomApp
+	}
+}
+
 function startReactRender() {
 	const rootEl = document.getElementById('react-root');
 	if (rootEl) {
@@ -20,12 +29,3 @@ startReactRender();
 window.PASRS = {
 	startReactRender,
 };
-
-declare global {
-	interface Window {
-		PASRS: {
-			startReactRender: () => void;
-		};
-		app: ShowdownRoomApp
-	}
-}
