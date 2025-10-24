@@ -79,12 +79,10 @@ app.receive = (data: string) => {
 			}
 
 			replaysManager.setRoomState(roomId, ReplayRoomState.Recorded);
-		} else {
-			appReceive(data);
 		}
+	} else {
+		appReceive(data);
 	}
-	
-	appReceive(data);
 };
 
 app.send = (data: string, roomId?: string) => {
