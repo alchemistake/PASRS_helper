@@ -9,7 +9,6 @@ $list-background-2-dark: rgba(169, 169, 169, 0.35);
 	gap: 16px;
 	padding: 8px 16px;
 	border-bottom: 1px solid var(--border-color);
-	transition: 200ms background-color ease-in-out;
 
 	&:nth-child(odd) {
 		html.dark & {
@@ -83,6 +82,7 @@ $list-background-2-dark: rgba(169, 169, 169, 0.35);
 				cursor: pointer;
 				border-radius: 50%;
 				padding: 4px;
+				transition: 200ms background-color ease-in-out;
 
 				&:hover {
 					html.dark & {
