@@ -58,9 +58,13 @@ app.receive = (data: string) => {
 
 	if (isWinMessage(data)) {
 		const roomId = getRoomIdFromData(data);
-		if (replaysManager.getRoomState(roomId) === ReplayRoomState.OnGoing) {
+		const roomState = replaysManager.getRoomState(roomId);
+		if (roomState === ReplayRoomState.OnGoing || roomState === ReplayRoomState.Forfeited) {
 			replaysManager.setRoomResult(roomId, data);
-			app.send("/savereplay", roomId);
+
+			if (roomState !== ReplayRoomState.Forfeited) {
+				app.send("/savereplay", roomId);
+			}
 		}
 	}
 
@@ -88,6 +92,7 @@ app.send = (data: string, roomId?: string) => {
 
 	appSend(data, roomId);
 	if (settings.active && isForfeitCommand(data) && roomId && replaysManager.getRoomState(roomId) === ReplayRoomState.OnGoing) {
+		replaysManager.setRoomState(roomId, ReplayRoomState.Forfeited);
 		appSend("/savereplay", roomId);
 	}
 	if (isLeaveViewCommand(data)) {

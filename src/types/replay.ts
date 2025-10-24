@@ -13,6 +13,7 @@ export enum ReplayRoomState {
 	Ignored = "ignored",
 	OnGoing = "ongoing",
 	Finished = "finished",
+	Forfeited = "forfeited",
 	Recorded = "recorded",
 }
 
