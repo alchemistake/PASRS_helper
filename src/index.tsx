@@ -4,15 +4,15 @@ import App from './components/App';
 import { App as ShowdownRoomApp } from './lib/showdown/room';
 
 function startReactRender() {
-const rootEl = document.getElementById('react-root');
-if (rootEl) {
-	const root = ReactDOM.createRoot(rootEl);
-	root.render(
-		<React.StrictMode>
-			<App />
-		</React.StrictMode>,
-	);
-}
+	const rootEl = document.getElementById('react-root');
+	if (rootEl) {
+		const root = ReactDOM.createRoot(rootEl);
+		root.render(
+			<React.StrictMode>
+				<App />
+			</React.StrictMode>,
+		);
+	}
 }
 
 startReactRender();
