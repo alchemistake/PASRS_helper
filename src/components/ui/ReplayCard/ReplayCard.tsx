@@ -23,7 +23,7 @@ export const ReplayCard: React.FC<{ roomReplay: RoomReplay }> = ({ roomReplay })
 					roomReplay.url ? (
 						<div className="replay-buttons">
 							<i className="fa fa-clipboard" aria-hidden="true" onClick={() => copyToClipboard(roomReplay.url)}></i>
-							<i className="fa fa-external-link" aria-hidden="true" onClick={() => window.open(roomReplay.url, "_blank")}></i>
+							<a href={roomReplay.url} rel="noopener noreferrer" className="fa fa-external-link" aria-hidden="true"></a>
 						</div>
 					) : null
 				}
