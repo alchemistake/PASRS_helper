@@ -51,7 +51,6 @@ $list-background-2-dark: rgba(169, 169, 169, 0.35);
 
 	>div.replay-actions {
 		display: grid;
-		grid-template-columns: auto calc(24px * 2);
 		gap: 8px;
 		margin-left: auto;
 		opacity: 0.75;
@@ -69,6 +68,10 @@ $list-background-2-dark: rgba(169, 169, 169, 0.35);
 			grid-column: 2;
 			display: flex;
 			align-items: center;
+
+			&:empty {
+				display: none;
+			}
 
 			> i {
 				height: 20px;
