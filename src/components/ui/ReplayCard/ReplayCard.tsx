@@ -7,7 +7,7 @@ export const ReplayCard: React.FC<{ roomReplay: RoomReplay }> = ({ roomReplay })
 	}
 
 	return (
-		<div className="replay-card" onClick={() => copyToClipboard(roomReplay.url)}>
+		<div className="replay-card">
 			<section className="replay-info">
 				<span className="replay-format">{roomReplay?.format}</span>
 				<span className="replay-players">
@@ -21,7 +21,10 @@ export const ReplayCard: React.FC<{ roomReplay: RoomReplay }> = ({ roomReplay })
 				</span>
 				{
 					roomReplay.url ? (
-						<i className="fa fa-clipboard" aria-hidden="true"></i>
+						<div className="replay-buttons">
+							<i className="fa fa-clipboard" aria-hidden="true" onClick={() => copyToClipboard(roomReplay.url)}></i>
+							<i className="fa fa-external-link" aria-hidden="true" onClick={() => window.open(roomReplay.url, "_blank")}></i>
+						</div>
 					) : null
 				}
 			</div>
