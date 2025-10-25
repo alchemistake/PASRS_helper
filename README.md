@@ -1,11 +1,15 @@
-Helper extension for PASRS & [Pokemon Showdown](https://play.pokemonshowdown.com/) that automatically uploads the replay of your last battle in PSD then it will be copied to your clipboard.
-Currently it only triggers the /savereplay command and then saves it to the clipboard.
+# PASRS Replay Helper
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub Release](https://img.shields.io/github/v/release/alchemistake/PASRS_helper)](https://github.com/alchemistake/PASRS_helper/releases)
 
-Room generation code comes from [Showdex](https://github.com/doshidak/showdex).
 
-Future plans include adding Google Sheet support to log the replays there automagicly.
+Helper extension for PASRS & [Pokemon Showdown](https://play.pokemonshowdown.com/) that automatically uploads the replay of your battles in PSD.<br>
+Your replays are stored in session storage and can be seen in the side panel for the PASRS Helper, where you can see the result and click them to copy the URL for the match.
 
-# Building from source
+## Planned features
+- Google Sheets integration for logging replays automatically
+
+## Building from source
 
 - Install [Bun](https://bun.sh/)
 - Clone the repo

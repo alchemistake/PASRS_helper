@@ -1,18 +1,20 @@
 import { defineConfig } from "@rsbuild/core";
+import { pluginSass } from '@rsbuild/plugin-sass';
+import { pluginReact } from '@rsbuild/plugin-react';
+
 import path from "node:path";
 
 console.log(path.resolve(__dirname, "src"));
 
 export default defineConfig({
-	plugins: [],
+	plugins: [pluginReact(), pluginSass()],
 
 	output: {
 		filenameHash: false,
-		filename: {
-			js: "[name].js",
-		},
 		distPath: {
 			js: "",
+			css: "",
+			root: "dist"
 		},
 	},
 	source: {
@@ -21,7 +23,8 @@ export default defineConfig({
 		},
 		entry: {
 			extension: "./src/extension/index.ts",
-			showdown: "./src/showdown/index.ts",
+			showdown: "./src/lib/showdown/showdown.ts",
+			react: "./src/index.tsx",
 		},
 	},
 	tools: {

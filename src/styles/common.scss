@@ -1,0 +1,72 @@
+:root {
+	--border-color: #AAAAAA;
+	--showdown-background-light: #EEF2F5;
+	--showdown-background-dark: #444444;
+}
+
+html.dark {
+	.pasrs-app .content .settings-section {
+		background-color: var(--showdown-background-dark);
+	}
+}
+
+#react-root {
+	height: 100%;
+	overflow: hidden;
+}
+
+.pasrs-app {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	height: 100%;
+	container-type: inline-size;
+  	container-name: pasrs-app;
+
+	header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 4px;
+		padding: 1em;
+		border-bottom: 1px solid var(--border-color);
+
+		h1, h2 { margin: 0; }
+
+		h1 {
+			font-size: 2.5em;
+			letter-spacing: 1.5px;
+			font-weight: 700;
+		}
+
+		h2 {
+			font-size: 1.1em;
+			font-weight: 400;
+			opacity: 0.85;
+		}
+	}
+
+	.content {
+		flex: 1;
+		display: flex;
+		height: 0;
+
+		.replay-section {
+			flex: 1;
+			display: flex;
+			border-right: 1px solid var(--border-color);
+		}
+
+		.settings-section {
+			flex: 0 0 360px;
+			display: flex;
+			background-color: var(--showdown-background-light);
+		}
+
+		@container pasrs-app (max-width: 654px) {
+			.settings-section {
+				display: none;
+			}
+		}
+	}
+}

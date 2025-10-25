@@ -1,0 +1,95 @@
+.replay-container {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	padding: 1em 1em 0;
+    gap: 8px;
+
+	h3 {
+		font-size: 1em;
+		font-weight: 400;
+		margin: 0 0 6px;
+		letter-spacing: 1px;
+	}
+
+	.replays {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		max-width: 550px;
+		display: flex;
+		margin: auto;
+		width: 100%;
+		border: 1px solid var(--border-color);
+		border-radius: 4px;
+		overflow: hidden;
+		margin-bottom: 32px;
+		
+		.replay-list {
+			display: flex;
+			overflow-y: auto;
+			flex-direction: column;
+			flex: 1;
+			max-height: 100%;
+
+			> p {
+				margin: 16px 0;
+				text-transform: uppercase;
+				text-align: center;
+				font-size: 10px;
+				opacity: 0.75;
+			}
+
+			html.dark & {
+				background-color: rgba(0, 0, 0, 0.70);
+			}
+
+			background-color: rgba(242, 247, 250, 0.70);
+			
+		}
+
+		footer.replay-footer {
+			display: flex;
+			justify-content: center;
+			text-align: center;
+			font-size: 11px;
+			letter-spacing: 1px;
+			font-weight: 600;
+			border-top: 1px solid var(--border-color);
+			margin-top: auto;
+			width: 100%;
+			text-transform: uppercase;
+			cursor: pointer;
+	
+			html.dark & {
+				color: #fff;
+				background-color: rgba(90, 90, 90, 0.70);
+			}
+			
+			background-color: rgba(255, 255, 255, 0.7);
+
+			> div:not(.divider) {
+				color: inherit;
+				padding: 8px 8px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex: 1;
+				transition: 250ms background-color;
+
+				&:hover {
+					html.dark & {
+						background-color: rgba(120, 120, 120, 0.70);
+					}
+
+					background-color: rgba(200, 200, 200, 0.70);
+				}
+			}
+
+			> .divider {
+				width: 1px;
+				background-color: var(--border-color);
+			}
+		}
+	}
+}

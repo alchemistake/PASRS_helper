@@ -1,8 +1,8 @@
 {
-  "manifest_version": 3,
   "name": "PASRS Helper",
-  "version": "0.3",
-  "description": "Automatically save Pokemon Showdown replays to your clipboard.",
+  "description": "Automatically uploads the replay of your last battle in PSD.",
+  "version": "1.0.0",
+  "manifest_version": 3,
   "icons": {
     "128": "128.png"
   },
@@ -22,7 +22,10 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "dist/showdown.js"
+        "dist/showdown.js",
+        "dist/lib-react.js",
+        "dist/react.js",
+        "dist/react.css"
       ],
       "matches": [
         "https://play.pokemonshowdown.com/*"
