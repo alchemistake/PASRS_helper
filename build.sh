@@ -4,7 +4,7 @@ function build() {
 
     mkdir -p "$build_dir/dist"
 
-    cp -r dist build/$build_type/dist
+    cp -r dist build/$build_type/
     cp 128.png build/$build_type/128.png
 
     if [ "$build_type" = "firefox" ]; then
