@@ -71,18 +71,23 @@ app.receive = (data: string) => {
 	if (isReplayUploadedMessage(data)) {
 		const url = getUrlFromData(data);
 		const roomId = getRoomIdFromURL(url);
-		replaysManager.updateReplayUrl(roomId, url);
 
-		if (replaysManager.getRoomState(roomId) === ReplayRoomState.Finished) {
-			if (settings.use_clipboard) {
-				copyToClipboardWithRetry(url, settings.notifications);
+		if (replaysManager.getRoomState(roomId) !== ReplayRoomState.Recorded) {
+			replaysManager.updateReplayUrl(roomId, url);
+	
+			if (replaysManager.getRoomState(roomId) === ReplayRoomState.Finished) {
+				if (settings.use_clipboard) {
+					copyToClipboardWithRetry(url, settings.notifications);
+				}
+	
+				replaysManager.setRoomState(roomId, ReplayRoomState.Recorded);
+				return;
 			}
-
-			replaysManager.setRoomState(roomId, ReplayRoomState.Recorded);
 		}
-	} else {
-		appReceive(data);
 	}
+
+	appReceive(data);
+	
 };
 
 app.send = (data: string, roomId?: string) => {
