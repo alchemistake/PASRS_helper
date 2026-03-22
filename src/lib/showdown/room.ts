@@ -42,7 +42,7 @@ export const createHtmlRoom = (
 	title: string,
 	options: CreateHtmlRoomOptions = {},
 ): Room | null => {
-	if (typeof app?._addRoom !== "function") {
+	if (typeof app?._addRoom !== 'function') {
 		return null;
 	}
 
@@ -54,10 +54,10 @@ export const createHtmlRoom = (
 		room = app.rooms[id];
 	} else {
 		// create a new room (will add the new room to the app.roomList array)
-		room = app._addRoom(id, "html", true, title);
+		room = app._addRoom(id, 'html', true, title);
 
 		// remove the initial "Page unavailable" HTML
-		room.$el.html("");
+		room.$el.html('');
 
 		// if a side room, add the room to the sideRoomList (also in the app.rooms object)
 		if (side) {
@@ -91,7 +91,7 @@ export const createHtmlRoom = (
 			// set the custom icon for the current room only
 			// (note: only HTMLRooms get the 'fa-file-text-o' [Font Awesome Outlined File Text] icon)
 			if (roomId === id) {
-				return buf.replace("fa-file-text-o", `fa-${icon}`);
+				return buf.replace('fa-file-text-o', `fa-${icon}`);
 			}
 
 			return buf;
@@ -99,7 +99,7 @@ export const createHtmlRoom = (
 	}
 
 	if (focus) {
-		app[side ? "focusRoomRight" : "focusRoom"](room.id);
+		app[side ? 'focusRoomRight' : 'focusRoom'](room.id);
 	}
 
 	app.topbar.updateTabbar();

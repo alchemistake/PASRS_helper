@@ -1,10 +1,10 @@
-import { defineConfig } from "@rsbuild/core";
-import { pluginSass } from '@rsbuild/plugin-sass';
+import { defineConfig } from '@rsbuild/core';
 import { pluginReact } from '@rsbuild/plugin-react';
+import { pluginSass } from '@rsbuild/plugin-sass';
 
-import path from "node:path";
+import path from 'node:path';
 
-console.log(path.resolve(__dirname, "src"));
+console.log(path.resolve(__dirname, 'src'));
 
 export default defineConfig({
 	plugins: [pluginReact(), pluginSass()],
@@ -12,22 +12,36 @@ export default defineConfig({
 	output: {
 		filenameHash: false,
 		distPath: {
-			js: "",
-			css: "",
-			root: "dist"
+			js: 'dist',
+			css: 'dist',
+			root: 'output',
 		},
 	},
 	source: {
 		define: {
-			VERSION: JSON.stringify(require("./manifest.json").version),
+			VERSION: JSON.stringify(require('./manifest.base.json').version),
 		},
 		entry: {
-			extension: "./src/extension/index.ts",
-			showdown: "./src/lib/showdown/showdown.ts",
-			react: "./src/index.tsx",
+			extension: './src/extension/index.ts',
+			showdown: './src/lib/showdown/showdown.ts',
+			react: './src/index.tsx',
 		},
 	},
 	tools: {
 		htmlPlugin: false,
+	},
+	environment: {
+		extension: {
+			source: {
+				preEntryHandlers: [
+					{
+						handler: 'DefinePlugin',
+						options: {
+							'process.env.BROWSER': JSON.stringify('chrome'),
+						},
+					},
+				],
+			},
+		},
 	},
 });

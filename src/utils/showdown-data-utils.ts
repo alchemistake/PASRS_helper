@@ -1,13 +1,15 @@
 /**
  * Extract the room ID from the raw data string.
  * @param data - The raw data string from Showdown
- * @returns The extracted room ID	
+ * @returns The extracted room ID
  */
 export function getRoomIdFromData(data: string): string {
 	const lines = data.split('\n');
 	const roomRecievedPrefix = '>';
 	const battlePrefix = 'battle-';
-	const battleLine = lines.find(line => line.startsWith(roomRecievedPrefix + battlePrefix));
+	const battleLine = lines.find((line) =>
+		line.startsWith(roomRecievedPrefix + battlePrefix),
+	);
 	if (!battleLine) return '';
 	return battleLine.replace(roomRecievedPrefix, '').trim();
 }
@@ -20,9 +22,9 @@ export function getRoomIdFromData(data: string): string {
 export function getRoomIdFromURL(url: string): string {
 	const urlPrefix = 'https://replay.pokemonshowdown.com/';
 	if (!url.startsWith(urlPrefix)) return '';
-	var id = url.replace(urlPrefix, '').trim();
+	const id = url.replace(urlPrefix, '').trim();
 
-	return 'battle-' + id;
+	return `battle-${id}`;
 }
 
 /**
@@ -33,7 +35,7 @@ export function getRoomIdFromURL(url: string): string {
  * @returns The extracted URL, or an empty string if not found.
  */
 export function getUrlFromData(data: string): string {
-	return data.slice(data.indexOf("https://"), data.indexOf('" target='));
+	return data.slice(data.indexOf('https://'), data.indexOf('" target='));
 }
 
 /**
@@ -48,7 +50,9 @@ export function getUrlFromData(data: string): string {
 export function getFormatFromData(data: string): string[] {
 	if (!data) return [];
 
-	const formatsLine = data.split("\n").find(line => line.includes("|formats|"));
+	const formatsLine = data
+		.split('\n')
+		.find((line) => line.includes('|formats|'));
 	if (!formatsLine) return [];
 
 	const parts = data.split('|');
@@ -74,7 +78,7 @@ export function getFormatFromData(data: string): string[] {
  * @returns The username if found, otherwise null.
  */
 export function getUserFromCookies(): string | null {
-	const match = document.cookie.match(new RegExp('(^| )showdown_username=([^;]+)'));
+	const match = document.cookie.match(/(^| )showdown_username=([^;]+)/);
 	if (match) {
 		return decodeURIComponent(match[2]);
 	}
