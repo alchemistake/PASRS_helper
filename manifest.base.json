@@ -6,7 +6,8 @@
 	"icons": {
 		"128": "128.png"
 	},
-	"permissions": ["*://*.pokemonshowdown.com/*", "*://*.psim.us/*", "storage"],
+	"permissions": ["storage"],
+	"host_permissions": ["*://*.pokemonshowdown.com/*", "*://*.psim.us/*"],
 	"content_scripts": [
 		{
 			"matches": ["*://play.pokemonshowdown.com/*", "*://*.psim.us/*"],
