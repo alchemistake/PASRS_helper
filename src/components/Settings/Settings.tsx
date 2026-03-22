@@ -49,7 +49,7 @@ const Settings = () => {
 
 				<SettingsCheckbox
 					settingsKey="clear_on_copy"
-					label="Clear all replays after copying"
+					label="Clear all replays after copy all"
 					checked={settings.clear_on_copy}
 					onChange={handleCheckboxChange}
 				/>
