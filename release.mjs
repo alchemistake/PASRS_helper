@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const buildDir = resolve(__dirname, 'build');
-const outputDir = resolve(__dirname, 'dist');
+const outputDir = resolve(__dirname, 'output');
 const packageJsonPath = resolve(__dirname, 'package.json');
 
 const { version } = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
@@ -19,17 +19,10 @@ function exec(command, options = {}) {
 }
 
 function buildExtension(target = 'chrome') {
-	const targetDir = join(buildDir, target);
-	mkdirSync(targetDir, { recursive: true });
-
-	cpSync(outputDir, join(targetDir, 'dist'), { recursive: true });
-	cpSync(resolve(__dirname, '128.png'), join(targetDir, '128.png'));
-
-	const manifestFile =
-		target === 'firefox' ? 'firefox_manifest.json' : 'manifest.json';
-	cpSync(resolve(__dirname, manifestFile), join(targetDir, 'manifest.json'));
-
-	return targetDir;
+	console.log(`Building ${target} extension...`);
+	const buildScript = target === 'firefox' ? 'build:firefox' : 'build:chrome';
+	exec(`bun run ${buildScript}`);
+	cpSync(outputDir, join(buildDir, target), { recursive: true });
 }
 
 function zipDirectory(sourceDir, outputPath) {
@@ -55,6 +48,62 @@ function buildSourceZip() {
 	rmSync(resolve(__dirname, sourceZipName));
 
 	console.log(`Created source zip: ${sourceZipPath}`);
+}
+
+async function uploadToChrome(chromeZip) {
+	console.log('Uploading to Chrome Web Store...');
+	try {
+		exec('npx chrome-webstore-upload --help');
+	} catch {
+		console.log(
+			'Chrome upload tool not found. Install with: npm install -g chrome-webstore-upload-cli',
+		);
+		console.log(
+			'Or set environment variables: CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN, EXTENSION_ID',
+		);
+		return;
+	}
+
+	const clientId = process.env.CLIENT_ID;
+	const clientSecret = process.env.CLIENT_SECRET;
+	const refreshToken = process.env.REFRESH_TOKEN;
+	const extensionId = process.env.EXTENSION_ID;
+
+	if (!clientId || !clientSecret || !refreshToken || !extensionId) {
+		console.log('Missing Chrome credentials. Skipping upload.');
+		return;
+	}
+
+	exec(
+		`npx chrome-webstore-upload upload --source "${chromeZip}" --extension-id "${extensionId}" --client-id "${clientId}" --client-secret "${clientSecret}" --refresh-token "${refreshToken}"`,
+	);
+	console.log('Uploaded to Chrome Web Store!');
+}
+
+async function uploadToFirefox(firefoxZip) {
+	console.log('Uploading to Firefox Add-ons...');
+	try {
+		exec('npx web-ext --version');
+	} catch {
+		console.log('web-ext not found. Install with: npm install -g web-ext');
+		console.log(
+			'Or set environment variables: WEB_EXT_JWT_ISSUER, WEB_EXT_JWT_SECRET',
+		);
+		return;
+	}
+
+	const jwtIssuer = process.env.WEB_EXT_JWT_ISSUER;
+	const jwtSecret = process.env.WEB_EXT_JWT_SECRET;
+
+	if (!jwtIssuer || !jwtSecret) {
+		console.log('Missing Firefox credentials. Skipping upload.');
+		return;
+	}
+
+	exec(
+		`npx web-ext sign --source-dir "${join(buildDir, 'firefox')}" --api-key "${jwtIssuer}" --api-secret "${jwtSecret}"`,
+	);
+	console.log('Uploaded to Firefox Add-ons!');
 }
 
 async function createGitHubRelease() {
@@ -117,6 +166,8 @@ async function main() {
 
 	if (!skipUpload) {
 		await createGitHubRelease();
+		await uploadToChrome(chromeZip);
+		await uploadToFirefox(firefoxZip);
 	}
 }
 
