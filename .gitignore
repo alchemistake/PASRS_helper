@@ -2,10 +2,11 @@
 .DS_Store
 *.local
 *.log*
+.firefox
 
-# Dist
+# Build output
 node_modules
-dist/
+output/
 build/
 
 # IDE

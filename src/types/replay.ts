@@ -5,21 +5,21 @@ export interface RoomReplay {
 	format?: string;
 	p1: string;
 	p2: string;
-	result: ReplayRoomResult;	
+	result: ReplayRoomResult;
 }
 
 export enum ReplayRoomState {
-	Initialized = "initialized",
-	Ignored = "ignored",
-	OnGoing = "ongoing",
-	Finished = "finished",
-	Forfeited = "forfeited",
-	Recorded = "recorded",
+	Initialized = 'initialized',
+	Ignored = 'ignored',
+	OnGoing = 'ongoing',
+	Finished = 'finished',
+	Forfeited = 'forfeited',
+	Recorded = 'recorded',
 }
 
 export enum ReplayRoomResult {
-	Unknown = "unknown",
-	Win = "win",
-	Loss = "loss",
-	Draw = "draw",
+	Unknown = 'unknown',
+	Win = 'win',
+	Loss = 'loss',
+	Draw = 'draw',
 }

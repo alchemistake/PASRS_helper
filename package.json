@@ -1,17 +1,20 @@
 {
 	"name": "test",
 	"private": true,
-	"version": "",
+	"version": "1.1.0",
 	"type": "module",
 	"scripts": {
 		"build": "node build.mjs",
 		"build:chrome": "node build.mjs chrome",
 		"build:firefox": "node build.mjs firefox",
-		"dev:extension": "bun run dev_server.ts",
+		"dev": "bun run dev_server.ts chrome",
+		"dev:chrome": "bun run dev_server.ts chrome",
+		"dev:firefox": "bun run dev_server.ts firefox",
 		"check": "biome check --write",
 		"react:dev": "rsbuild dev --open",
 		"format": "biome format --write",
-		"preview": "rsbuild preview"
+		"preview": "rsbuild preview",
+		"release": "bun release.mjs"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",

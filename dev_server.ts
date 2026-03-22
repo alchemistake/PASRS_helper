@@ -1,8 +1,9 @@
 import chokidar from 'chokidar';
 const { exec } = require('node:child_process');
-import { existsSync } from 'node:fs';
 
-const target = existsSync('.firefox') ? 'firefox' : 'chrome';
+const target = process.argv[2] || 'chrome';
+
+console.log(`Starting dev server for ${target}...`);
 
 chokidar.watch(['src', 'manifest.json']).on('all', (event, path) => {
 	console.log(event, path);

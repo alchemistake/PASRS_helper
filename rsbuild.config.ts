@@ -12,14 +12,14 @@ export default defineConfig({
 	output: {
 		filenameHash: false,
 		distPath: {
-			js: '',
-			css: '',
-			root: 'dist',
+			js: 'dist',
+			css: 'dist',
+			root: 'output',
 		},
 	},
 	source: {
 		define: {
-			VERSION: JSON.stringify(require('./manifest.json').version),
+			VERSION: JSON.stringify(require('./manifest.base.json').version),
 		},
 		entry: {
 			extension: './src/extension/index.ts',
