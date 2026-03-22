@@ -48,6 +48,12 @@ export class ReplaysManager {
 		sessionStorage.removeItem(replaysStorageKey);
 	}
 
+	removeReplay(roomId: string): void {
+		const replays = this.getReplays();
+		const filtered = replays.filter((r) => r.id !== roomId);
+		this.saveReplays(filtered);
+	}
+
 	getRoomState(roomId: string): ReplayRoomState | undefined {
 		const replays = this.getReplays();
 		const replay = replays.find((r) => r.id === roomId);

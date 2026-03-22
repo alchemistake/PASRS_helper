@@ -2,9 +2,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { onReplaysUpdated } from '../lib/events';
 import { ReplaysManager } from '../lib/storage/replays-manager';
 import type { ReplayRoomState, RoomReplay } from '../types/replay';
+import { useSettings } from './useSettings';
 
 export const useReplays = () => {
 	const replaysManager = new ReplaysManager();
+	const { settings } = useSettings();
 
 	const [replays, setReplays] = useState<RoomReplay[]>(() =>
 		replaysManager.getReplays(),
@@ -27,6 +29,13 @@ export const useReplays = () => {
 		setReplays([]);
 	}, [replaysManager]);
 
+	const removeReplay = useCallback(
+		(roomId: string) => {
+			replaysManager.removeReplay(roomId);
+		},
+		[replaysManager],
+	);
+
 	const copyAllReplays = useCallback(() => {
 		const allReplays = replaysManager.getReplays();
 		if (allReplays.length === 0) return;
@@ -35,11 +44,14 @@ export const useReplays = () => {
 			.writeText(replayUrls)
 			.then(() => {
 				console.log('Replays copied to clipboard');
+				if (settings.clear_on_copy) {
+					clearAllReplays();
+				}
 			})
 			.catch((err) => {
 				console.error('Failed to copy replays: ', err);
 			});
-	}, [replaysManager]);
+	}, [replaysManager, clearAllReplays, settings.clear_on_copy]);
 
 	useEffect(() => {
 		const removeReplaysListener = onReplaysUpdated((updatedReplays) => {
@@ -56,5 +68,6 @@ export const useReplays = () => {
 		updateRoomState,
 		clearAllReplays,
 		copyAllReplays,
+		removeReplay,
 	};
 };

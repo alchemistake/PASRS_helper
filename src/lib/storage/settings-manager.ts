@@ -1,83 +1,85 @@
-import { Settings } from "../../types/settings";
-import { dispatchFormatsUpdated, dispatchSettingsUpdated, onFormatsUpdated } from "../events";
+import type { Settings } from '../../types/settings';
+import {
+	dispatchFormatsUpdated,
+	dispatchSettingsUpdated,
+	onFormatsUpdated,
+} from '../events';
 
 const settingsStorageKey = 'pasrs_helper_settings';
 
 export class SettingsManager {
-    static instance: SettingsManager;
-    settings: Settings;
-    customFormats: string[] = [];
-    private removeFormatsListener?: () => void;
+	static instance: SettingsManager;
+	settings: Settings;
+	customFormats: string[] = [];
+	private removeFormatsListener?: () => void;
 
-    private constructor() {
-        this.settings = this.loadFromStorage();
-        
-        this.removeFormatsListener = onFormatsUpdated((formats) => {
-            this.customFormats = formats;
-        });
-    }
+	private constructor() {
+		this.settings = this.loadFromStorage();
 
-    static getInstance(): SettingsManager {
-        if (!SettingsManager.instance) {
-            SettingsManager.instance = new SettingsManager();
-        }
-        return SettingsManager.instance;
-    }
+		this.removeFormatsListener = onFormatsUpdated((formats) => {
+			this.customFormats = formats;
+		});
+	}
 
-    getSettings(): Settings {
-        return this.settings;
-    }
+	static getInstance(): SettingsManager {
+		if (!SettingsManager.instance) {
+			SettingsManager.instance = new SettingsManager();
+		}
+		return SettingsManager.instance;
+	}
 
-    updateSetting<K extends keyof Settings>(
-        key: K,
-        value: Settings[K]
-    ): void {
-        this.settings[key] = value;
-        this.saveToStorage();
-        dispatchSettingsUpdated(this.settings);
-    }
+	getSettings(): Settings {
+		return this.settings;
+	}
 
-    getCustomFormats(): string[] {
-        return this.customFormats;
-    }
+	updateSetting<K extends keyof Settings>(key: K, value: Settings[K]): void {
+		this.settings[key] = value;
+		this.saveToStorage();
+		dispatchSettingsUpdated(this.settings);
+	}
 
-    setCustomFormats(formats: string[]): void {
-        // Remove everything with Bo3
-        formats = formats.filter(format => !format.endsWith("(Bo3)"));
+	getCustomFormats(): string[] {
+		return this.customFormats;
+	}
 
-        this.customFormats = formats;
-        // Broadcast the format update to other contexts
-        dispatchFormatsUpdated(formats);
-    }
+	setCustomFormats(formats: string[]): void {
+		// Remove everything with Bo3
+		formats = formats.filter((format) => !format.endsWith('(Bo3)'));
 
-    destroy(): void {
-        if (this.removeFormatsListener) {
-            this.removeFormatsListener();
-        }
-    }
+		this.customFormats = formats;
+		// Broadcast the format update to other contexts
+		dispatchFormatsUpdated(formats);
+	}
 
-    private loadFromStorage(): Settings {
-        const stored = localStorage.getItem(settingsStorageKey);
-        if (stored) {
-            try {
-                return JSON.parse(stored);
-            } catch (error) {
-                console.warn('Failed to parse stored settings, using defaults');
-            }
-        }
+	destroy(): void {
+		if (this.removeFormatsListener) {
+			this.removeFormatsListener();
+		}
+	}
 
-        // Default settings
-        return {
-            active: true,
-            use_clipboard: true,
-            notifications: true,
-            vgc_only: true,
-            use_custom_replay_filter: false,
-            custom_replay_filter: [],
-        };
-    }
+	private loadFromStorage(): Settings {
+		const stored = localStorage.getItem(settingsStorageKey);
+		if (stored) {
+			try {
+				return JSON.parse(stored);
+			} catch (error) {
+				console.warn('Failed to parse stored settings, using defaults');
+			}
+		}
 
-    private saveToStorage(): void {
-        localStorage.setItem(settingsStorageKey, JSON.stringify(this.settings));
-    }
+		// Default settings
+		return {
+			active: true,
+			use_clipboard: true,
+			notifications: true,
+			vgc_only: true,
+			use_custom_replay_filter: false,
+			custom_replay_filter: [],
+			clear_on_copy: false,
+		};
+	}
+
+	private saveToStorage(): void {
+		localStorage.setItem(settingsStorageKey, JSON.stringify(this.settings));
+	}
 }

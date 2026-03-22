@@ -1,9 +1,10 @@
 import { ReplayRoomState, type RoomReplay } from '../../../types/replay';
 import './ReplayCard.scss';
 
-export const ReplayCard: React.FC<{ roomReplay: RoomReplay }> = ({
-	roomReplay,
-}) => {
+export const ReplayCard: React.FC<{
+	roomReplay: RoomReplay;
+	onRemove?: () => void;
+}> = ({ roomReplay, onRemove }) => {
 	const isBattleCompleted = (): boolean => {
 		return (
 			roomReplay.state === ReplayRoomState.Finished ||
@@ -24,24 +25,34 @@ export const ReplayCard: React.FC<{ roomReplay: RoomReplay }> = ({
 				<span className="replay-state">
 					{isBattleCompleted() ? roomReplay.result : roomReplay.state}
 				</span>
-				{roomReplay.url ? (
-					<div className="replay-buttons">
+				<div className="replay-buttons">
+					{onRemove && (
 						<button
 							type="button"
-							className="fa fa-clipboard"
-							onClick={() => copyToClipboard(roomReplay.url)}
-							aria-label="Copy replay URL"
+							className="fa fa-times"
+							onClick={onRemove}
+							aria-label="Remove replay"
 						/>
-						<a
-							href={roomReplay.url}
-							rel="noopener noreferrer"
-							className="fa fa-external-link"
-							aria-label="Open replay in new tab"
-						>
-							<span className="sr-only">Open replay</span>
-						</a>
-					</div>
-				) : null}
+					)}
+					{roomReplay.url && (
+						<>
+							<button
+								type="button"
+								className="fa fa-clipboard"
+								onClick={() => copyToClipboard(roomReplay.url)}
+								aria-label="Copy replay URL"
+							/>
+							<a
+								href={roomReplay.url}
+								rel="noopener noreferrer"
+								className="fa fa-external-link"
+								aria-label="Open replay in new tab"
+							>
+								<span className="sr-only">Open replay</span>
+							</a>
+						</>
+					)}
+				</div>
 			</div>
 		</div>
 	);

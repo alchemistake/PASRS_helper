@@ -1,9 +1,8 @@
-import { SettingsKey } from '../../types/settings';
+import type { SettingsKey } from '../../types/settings';
 import './Settings.scss';
 import { useSettings } from '../../hooks/useSettings';
 import SettingsCheckbox from '../ui/SettingsCheckbox/SettingsCheckBox';
 import { SettingsFormatSelect } from '../ui/SettingsFormatSelect/SettingsFormatSelect';
-
 
 // @ts-ignore : VERSION is injected by the bundler
 const VERSION_TEXT = VERSION;
@@ -15,7 +14,10 @@ const Settings = () => {
 		updateSetting(key, value);
 	};
 
-	const handleFormatSelectChange = (key: SettingsKey, value: string[]): void => {
+	const handleFormatSelectChange = (
+		key: SettingsKey,
+		value: string[],
+	): void => {
 		updateSetting(key, value);
 	};
 
@@ -24,14 +26,33 @@ const Settings = () => {
 			<h3>Settings</h3>
 
 			<section className="settings-group">
-				<SettingsCheckbox settingsKey="active" label="Enable Automatic Replay Upload"
-					checked={settings.active} onChange={handleCheckboxChange} />
+				<SettingsCheckbox
+					settingsKey="active"
+					label="Enable Automatic Replay Upload"
+					checked={settings.active}
+					onChange={handleCheckboxChange}
+				/>
 
-				<SettingsCheckbox settingsKey="use_clipboard" label="Put new replays in clipboard"
-					checked={settings.use_clipboard} onChange={handleCheckboxChange} />
+				<SettingsCheckbox
+					settingsKey="use_clipboard"
+					label="Put new replays in clipboard"
+					checked={settings.use_clipboard}
+					onChange={handleCheckboxChange}
+				/>
 
-				<SettingsCheckbox settingsKey="notifications" label="Enable Upload Done Notifications"
-					checked={settings.notifications} onChange={handleCheckboxChange} />
+				<SettingsCheckbox
+					settingsKey="notifications"
+					label="Enable Upload Done Notifications"
+					checked={settings.notifications}
+					onChange={handleCheckboxChange}
+				/>
+
+				<SettingsCheckbox
+					settingsKey="clear_on_copy"
+					label="Clear all replays after copying"
+					checked={settings.clear_on_copy}
+					onChange={handleCheckboxChange}
+				/>
 			</section>
 
 			<hr />
@@ -39,11 +60,21 @@ const Settings = () => {
 			<section className="settings-group">
 				<span>Replay Filtering</span>
 
-				<SettingsCheckbox settingsKey="vgc_only" label="VGC Mode (Only save VGC replays)"
-					checked={settings.vgc_only} onChange={handleCheckboxChange} disabled={settings.use_custom_replay_filter} />
+				<SettingsCheckbox
+					settingsKey="vgc_only"
+					label="VGC Mode (Only save VGC replays)"
+					checked={settings.vgc_only}
+					onChange={handleCheckboxChange}
+					disabled={settings.use_custom_replay_filter}
+				/>
 
-				<SettingsCheckbox settingsKey="use_custom_replay_filter" label="Use Custom Replay Filter"
-					checked={settings.use_custom_replay_filter} onChange={handleCheckboxChange} disabled={settings.vgc_only} />
+				<SettingsCheckbox
+					settingsKey="use_custom_replay_filter"
+					label="Use Custom Replay Filter"
+					checked={settings.use_custom_replay_filter}
+					onChange={handleCheckboxChange}
+					disabled={settings.vgc_only}
+				/>
 
 				<SettingsFormatSelect
 					settingsKey="custom_replay_filter"
@@ -65,7 +96,7 @@ const Settings = () => {
 					<i className="fa fa-bug" aria-hidden="true"></i>
 					Report Bug
 				</button>
-				<span className='version-label'>version {VERSION_TEXT}</span>
+				<span className="version-label">version {VERSION_TEXT}</span>
 			</section>
 		</div>
 	);
@@ -76,7 +107,10 @@ const openIssuesPage = (): void => {
 };
 
 const openCreditsPage = (): void => {
-	window.open('https://github.com/alchemistake/PASRS_helper/tree/main?tab=contributing-ov-file#maintainers--credits', '_blank');
-}
+	window.open(
+		'https://github.com/alchemistake/PASRS_helper/tree/main?tab=contributing-ov-file#maintainers--credits',
+		'_blank',
+	);
+};
 
 export default Settings;
