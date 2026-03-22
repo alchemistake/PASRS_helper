@@ -1,32 +1,22 @@
 {
-  "name": "PASRS Helper",
-  "description": "Automatically uploads the replay of your last battle in PSD.",
-  "version": "1.0.2",
-  "manifest_version": 3,
-  "icons": {
-    "128": "128.png"
-  },
-  "content_scripts": [
-    {
-      "matches": [
-        "https://play.pokemonshowdown.com/*"
-      ],
-      "js": [
-        "dist/extension.js"
-      ]
-    }
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "dist/showdown.js",
-        "dist/lib-react.js",
-        "dist/react.js",
-        "dist/react.css"
-      ],
-      "matches": [
-        "https://play.pokemonshowdown.com/*"
-      ]
-    }
-  ]
+	"name": "PASRS Helper",
+	"description": "Automatically uploads the replay of your last battle in PSD.",
+	"version": "1.1.0",
+	"manifest_version": 3,
+	"icons": {
+		"128": "128.png"
+	},
+	"permissions": ["*://*.pokemonshowdown.com/*", "*://*.psim.us/*", "storage"],
+	"content_scripts": [
+		{
+			"matches": ["*://play.pokemonshowdown.com/*", "*://*.psim.us/*"],
+			"js": ["dist/extension.js"]
+		}
+	],
+	"web_accessible_resources": [
+		{
+			"resources": ["showdown.js", "lib-react.js", "react.js", "react.css"],
+			"matches": ["*://play.pokemonshowdown.com/*", "*://*.psim.us/*"]
+		}
+	]
 }

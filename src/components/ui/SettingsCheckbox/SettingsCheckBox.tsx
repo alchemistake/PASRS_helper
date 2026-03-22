@@ -1,7 +1,6 @@
-import React from 'react';
-import { SettingsKey } from '../../../types/settings';
+import type React from 'react';
+import type { SettingsKey } from '../../../types/settings';
 import './SettingsCheckBox.scss';
-
 
 interface SettingsCheckboxProps {
 	settingsKey: SettingsKey;
@@ -16,7 +15,7 @@ const SettingsCheckbox: React.FC<SettingsCheckboxProps> = ({
 	label,
 	checked,
 	onChange,
-	disabled
+	disabled,
 }) => {
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
 		onChange(settingsKey, event.target.checked);

@@ -1,11 +1,13 @@
-import { ReplayCard } from "../ui/ReplayCard/ReplayCard";
-import { useReplays } from "../../hooks/useReplays";
+import { useReplays } from '../../hooks/useReplays';
+import { ReplayCard } from '../ui/ReplayCard/ReplayCard';
 import './ReplayList.scss';
-import { ReplayRoomState } from "../../types/replay";
+import { ReplayRoomState } from '../../types/replay';
 
 const ReplayList = () => {
 	const { replays, clearAllReplays, copyAllReplays } = useReplays();
-	var shownReplays = replays.filter(replay => replay.state !== ReplayRoomState.Ignored);
+	const shownReplays = replays.filter(
+		(replay) => replay.state !== ReplayRoomState.Ignored,
+	);
 
 	return (
 		<section className="replay-container">
@@ -19,19 +21,23 @@ const ReplayList = () => {
 						<p>No replays available</p>
 					) : (
 						shownReplays.map((replay) => (
-							<ReplayCard roomReplay={replay} />
+							<ReplayCard key={replay.id} roomReplay={replay} />
 						))
 					)}
 				</section>
 
 				<footer className="replay-footer">
-					<div className="clear-all" onClick={clearAllReplays}>Clear All Replays</div>
-					<div className="divider"></div>
-					<div className="copy-all" onClick={copyAllReplays}>Copy All Replays</div>
+					<button type="button" className="clear-all" onClick={clearAllReplays}>
+						Clear All Replays
+					</button>
+					<div className="divider" />
+					<button type="button" className="copy-all" onClick={copyAllReplays}>
+						Copy All Replays
+					</button>
 				</footer>
 			</section>
 		</section>
-	)
-}
+	);
+};
 
 export default ReplayList;

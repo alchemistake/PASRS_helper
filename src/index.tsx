@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/App';
-import { App as ShowdownRoomApp } from './lib/showdown/room';
+import type { App as ShowdownRoomApp } from './lib/showdown/room';
 
 declare global {
 	interface Window {
 		PASRS: {
 			startReactRender: () => void;
 		};
-		app: ShowdownRoomApp
+		app: ShowdownRoomApp;
 	}
 }
 

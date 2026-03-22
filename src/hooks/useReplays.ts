@@ -1,38 +1,44 @@
-import { useState, useCallback, useEffect } from 'react';
-import { ReplaysManager } from '../lib/storage/replays-manager';
-import { RoomReplay, ReplayRoomState } from '../types/replay';
+import { useCallback, useEffect, useState } from 'react';
 import { onReplaysUpdated } from '../lib/events';
+import { ReplaysManager } from '../lib/storage/replays-manager';
+import type { ReplayRoomState, RoomReplay } from '../types/replay';
 
 export const useReplays = () => {
 	const replaysManager = new ReplaysManager();
 
 	const [replays, setReplays] = useState<RoomReplay[]>(() =>
-		replaysManager.getReplays()
+		replaysManager.getReplays(),
 	);
 
 	const refreshReplays = useCallback(() => {
 		setReplays(replaysManager.getReplays());
-	}, []);
+	}, [replaysManager]);
 
-	const updateRoomState = useCallback((roomId: string, state: ReplayRoomState) => {
-		replaysManager.setRoomState(roomId, state);
-		refreshReplays();
-	}, [refreshReplays]);
+	const updateRoomState = useCallback(
+		(roomId: string, state: ReplayRoomState) => {
+			replaysManager.setRoomState(roomId, state);
+			refreshReplays();
+		},
+		[refreshReplays, replaysManager],
+	);
 
 	const clearAllReplays = useCallback(() => {
 		replaysManager.clearReplays();
 		setReplays([]);
-	}, []);
+	}, [replaysManager]);
 
 	const copyAllReplays = useCallback(() => {
 		const allReplays = replaysManager.getReplays();
 		if (allReplays.length === 0) return;
-		const replayUrls = allReplays.map(replay => replay.url).join('\n');
-		navigator.clipboard.writeText(replayUrls).then(() => {
-			console.log('Replays copied to clipboard');
-		}).catch(err => {
-			console.error('Failed to copy replays: ', err);
-		});
+		const replayUrls = allReplays.map((replay) => replay.url).join('\n');
+		navigator.clipboard
+			.writeText(replayUrls)
+			.then(() => {
+				console.log('Replays copied to clipboard');
+			})
+			.catch((err) => {
+				console.error('Failed to copy replays: ', err);
+			});
 	}, [replaysManager]);
 
 	useEffect(() => {
@@ -43,7 +49,7 @@ export const useReplays = () => {
 		return () => {
 			removeReplaysListener();
 		};
-	}, [replaysManager]);
+	}, []);
 
 	return {
 		replays,

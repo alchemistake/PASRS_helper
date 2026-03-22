@@ -1,18 +1,20 @@
 import chokidar from 'chokidar';
-const { exec } = require('child_process');
+const { exec } = require('node:child_process');
+import { existsSync } from 'node:fs';
 
-chokidar.watch(['src', 'manifest.json', 'firefox_manifest.json']).on('all', (event, path) => {
-    console.log(event, path);
-    // Trigger a rebuild or other action here
-    exec('rsbuild build', (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Error: ${error.message}`);
-            return;
-        }
-        if (stderr) {
-            console.error(`stderr: ${stderr}`);
-            return;
-        }
-        console.log(`stdout: ${stdout}`);
-    });
+const target = existsSync('.firefox') ? 'firefox' : 'chrome';
+
+chokidar.watch(['src', 'manifest.json']).on('all', (event, path) => {
+	console.log(event, path);
+	exec(`node build.mjs ${target}`, (error, stdout, stderr) => {
+		if (error) {
+			console.error(`Error: ${error.message}`);
+			return;
+		}
+		if (stderr) {
+			console.error(`stderr: ${stderr}`);
+			return;
+		}
+		console.log(`stdout: ${stdout}`);
+	});
 });

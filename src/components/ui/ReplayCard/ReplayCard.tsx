@@ -1,10 +1,15 @@
-import { ReplayRoomState, RoomReplay } from "../../../types/replay";
+import { ReplayRoomState, type RoomReplay } from '../../../types/replay';
 import './ReplayCard.scss';
 
-export const ReplayCard: React.FC<{ roomReplay: RoomReplay }> = ({ roomReplay }) => {
+export const ReplayCard: React.FC<{ roomReplay: RoomReplay }> = ({
+	roomReplay,
+}) => {
 	const isBattleCompleted = (): boolean => {
-		return roomReplay.state === ReplayRoomState.Finished || roomReplay.state === ReplayRoomState.Recorded;
-	}
+		return (
+			roomReplay.state === ReplayRoomState.Finished ||
+			roomReplay.state === ReplayRoomState.Recorded
+		);
+	};
 
 	return (
 		<div className="replay-card">
@@ -19,18 +24,28 @@ export const ReplayCard: React.FC<{ roomReplay: RoomReplay }> = ({ roomReplay })
 				<span className="replay-state">
 					{isBattleCompleted() ? roomReplay.result : roomReplay.state}
 				</span>
-				{
-					roomReplay.url ? (
-						<div className="replay-buttons">
-							<i className="fa fa-clipboard" aria-hidden="true" onClick={() => copyToClipboard(roomReplay.url)}></i>
-							<a href={roomReplay.url} rel="noopener noreferrer" className="fa fa-external-link" aria-hidden="true"></a>
-						</div>
-					) : null
-				}
+				{roomReplay.url ? (
+					<div className="replay-buttons">
+						<button
+							type="button"
+							className="fa fa-clipboard"
+							onClick={() => copyToClipboard(roomReplay.url)}
+							aria-label="Copy replay URL"
+						/>
+						<a
+							href={roomReplay.url}
+							rel="noopener noreferrer"
+							className="fa fa-external-link"
+							aria-label="Open replay in new tab"
+						>
+							<span className="sr-only">Open replay</span>
+						</a>
+					</div>
+				) : null}
 			</div>
 		</div>
 	);
-}
+};
 
 const copyToClipboard = (url: string) => {
 	if (!url) return;
@@ -38,4 +53,4 @@ const copyToClipboard = (url: string) => {
 	navigator.clipboard.writeText(url).catch((err) => {
 		console.error('Failed to copy text to clipboard:', err);
 	});
-}
+};
