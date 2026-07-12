@@ -63,7 +63,7 @@ page (React panel / showdown hook)
 - `src/components/ui/SheetsSettings.tsx` — sign-in UI, spreadsheet ID, "Create
   tracker" button, team pokepaste URL + "Update team in sheet" button.
 
-The tracker is auto-created by uploading the bundled `pasrs-template.xlsx` to
+The tracker is auto-created by uploading the bundled `assets/pasrs-template.xlsx` to
 Drive and converting it to a Google Sheet (`files.create`, multipart). This only
 needs the `drive.file` scope (the extension is creating the file). If no
 spreadsheet ID is set when a replay is recorded, one is created automatically.

@@ -19,6 +19,5 @@ source.zip
 !.vscode/extensions.json
 .idea
 
-# D'uh
-.env
+# Secrets
 .env

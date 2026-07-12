@@ -15,7 +15,7 @@ const distDir = resolve(outputDir, 'dist');
 const manifestPath = resolve(__dirname, 'manifest.base.json');
 const packageJsonPath = resolve(__dirname, 'package.json');
 const iconsDir = resolve(__dirname, 'icons');
-const templatePath = resolve(__dirname, 'pasrs-template.xlsx');
+const templatePath = resolve(__dirname, 'assets', 'pasrs-template.xlsx');
 
 const FIREFOX_ID =
 	'"gecko": {"id": "pasrs-helper@nimnim111","strict_min_version": "109.0"}';

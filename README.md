@@ -34,5 +34,5 @@ Chrome can't install `.xpi` files. Use one of these:
 ## Building from source
 
 - Install [Bun](https://bun.sh/)
-- Clone the repo
-- Run `./build.sh` (or `npm run build` for Chrome / `npm run build:firefox` for Firefox)
+- Clone the repo and run `bun install`
+- Run `npm run build` for Chrome or `npm run build:firefox` for Firefox
