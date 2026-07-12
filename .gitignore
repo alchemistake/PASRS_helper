@@ -21,3 +21,10 @@ source.zip
 
 # Secrets
 .env
+.env.*
+
+# Stale lockfile (project uses bun.lock)
+package-lock.json
+
+# Claude Code local settings
+.claude/settings.local.json
